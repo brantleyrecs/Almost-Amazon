@@ -70,6 +70,18 @@ const updateAuthor = (payload) => new Promise((resolve, reject) => {
     .catch(reject);
 });
 
+const getFavAuthor = () => new Promise((resolve, reject) => {
+  fetch(`${endPoint}/authors.json?orderBy="favorite"&equalTo=true`, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  })
+    .then((response) => response.json())
+    .then((data) => resolve(Object.values(data)))
+    .catch(reject);
+});
+
 // TODO: GET A SINGLE AUTHOR'S BOOKS
 const getAuthorBooks = () => {};
 
@@ -80,4 +92,5 @@ export {
   deleteSingleAuthor,
   updateAuthor,
   getAuthorBooks,
+  getFavAuthor,
 };
