@@ -1,4 +1,4 @@
-import { deleteSingleAuthor, getAuthors } from '../api/authorData';
+import { deleteSingleAuthor, getAuthors, getSingleAuthor } from '../api/authorData';
 import { deleteBook, getBooks, getSingleBook } from '../api/bookData';
 import { showAuthors } from '../pages/authors';
 import { showBooks } from '../pages/books';
@@ -37,6 +37,13 @@ const domEvents = () => {
       console.warn('EDIT BOOK', e.target.id);
       console.warn(e.target.id.split('--'));
     }
+
+    if (e.target.id.includes('edit-author-btn')) {
+      const [, firebaseKey] = e.target.id.split('--');
+
+      getSingleAuthor(firebaseKey).then((authorObj) => addAuthorForm(authorObj));
+    }
+
     // TODO: CLICK EVENT FOR VIEW BOOK DETAILS
     if (e.target.id.includes('view-book-btn')) {
       const [, firebaseKey] = e.target.id.split('--');
