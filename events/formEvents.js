@@ -46,11 +46,24 @@ const formEvents = () => {
       console.warn(firebaseKey);
     }
 
+    if (e.target.id.includes('update-author')) {
+      const [, firebaseKey] = e.target.id.split('--');
+      const payload = {
+        email: document.querySelector('#email').value,
+        first_name: document.querySelector('#first_name').value,
+        last_name: document.querySelector('#last_name').value,
+        firebaseKey,
+      };
+
+      updateAuthor(payload).then(() => {
+        getAuthors().then(showAuthors);
+      });
+    }
+
     // FIXME: ADD CLICK EVENT FOR SUBMITTING FORM FOR ADDING AN AUTHOR
     if (e.target.id.includes('submit-author')) {
       const payload = {
         email: document.querySelector('#email').value,
-        favorite: document.querySelector('#fav').checked,
         first_name: document.querySelector('#first_name').value,
         last_name: document.querySelector('#last_name').value,
       };
