@@ -85,7 +85,7 @@ const getFavAuthor = () => new Promise((resolve, reject) => {
 
 // TODO: GET A SINGLE AUTHOR'S BOOKS
 const getAuthorBooks = (firebaseKey) => new Promise((resolve, reject) => {
-  fetch(`${endPoint}/books.json?orderBy="uid"&equalTo=${firebaseKey}.json`, {
+  fetch(`${endPoint}/books.json?orderBy="author_id"&equalTo="${firebaseKey}"`, {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
