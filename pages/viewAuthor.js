@@ -7,7 +7,7 @@ const viewAuthor = (obj) => {
   const domString1 = `
   <div class="mt-5 d-flex flex-wrap">
    <div class="d-flex flex-column">
-     <div class="card" style="width: 18rem;">
+     <div class="card author-info-book" style="width: 18rem;">
       <div class="card-body">
         <h5 class="card-title">${obj.first_name} ${obj.last_name}</h5>
         <h6 class="card-subtitle mb-2 text-muted">${obj.email}</h6>
@@ -20,12 +20,12 @@ const viewAuthor = (obj) => {
     </div>
   </div>
   `;
-  renderToDOM('#view-author-books', domString1);
+  renderToDOM('#view-author', domString1);
 
   let domString2 = '';
   obj.bookArray.forEach((item) => {
     domString2 += `
-    <div class="card">
+    <div class="card author-info-book">
         <img class="card-img-top" src=${item.image} alt=${item.title} style="height: 400px;">
         <div class="card-body" style="height: 180px;">
           <h5 class="card-title">${item.title}</h5>
@@ -37,7 +37,7 @@ const viewAuthor = (obj) => {
         </div>
       </div>`;
 
-    renderToDOM('#view', domString2);
+    renderToDOM('#view-author-books', domString2);
   });
 };
 
