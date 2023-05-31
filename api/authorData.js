@@ -4,8 +4,8 @@
 const endPoint = 'https://almost-a8fe2-default-rtdb.firebaseio.com/';
 
 // FIXME:  GET ALL AUTHORS
-const getAuthors = () => new Promise((resolve, reject) => {
-  fetch(`${endPoint}/authors.json`, {
+const getAuthors = (uid) => new Promise((resolve, reject) => {
+  fetch(`${endPoint}/authors.json?orderBy="uid"&equalTo="${uid}"`, {
     method: 'GET',
     headers: {
       'Content-Type': 'application.json',
@@ -24,8 +24,8 @@ const getAuthors = () => new Promise((resolve, reject) => {
 });
 
 // FIXME: CREATE AUTHOR
-const createAuthor = (payload) => new Promise((resolve, reject) => {
-  fetch(`${endPoint}/authors.json`, {
+const createAuthor = (payload, uid) => new Promise((resolve, reject) => {
+  fetch(`${endPoint}/authors.json?orderBy="uid"&equalTo="${uid}"`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -51,8 +51,8 @@ const getSingleAuthor = (firebaseKey) => new Promise((resolve, reject) => {
 });
 
 // FIXME: DELETE AUTHOR
-const deleteSingleAuthor = (firebaseKey) => new Promise((resolve, reject) => {
-  fetch(`${endPoint}/authors/${firebaseKey}.json`, {
+const deleteSingleAuthor = (firebaseKey, uid) => new Promise((resolve, reject) => {
+  fetch(`${endPoint}/authors/${firebaseKey}.json?orderBy="uid"&equalTo="${uid}"`, {
     method: 'DELETE',
     headers: {
       'Content-Type': 'application/json',
@@ -64,8 +64,8 @@ const deleteSingleAuthor = (firebaseKey) => new Promise((resolve, reject) => {
 });
 
 // FIXME: UPDATE AUTHOR
-const updateAuthor = (payload) => new Promise((resolve, reject) => {
-  fetch(`${endPoint}/authors/${payload.firebaseKey}.json`, {
+const updateAuthor = (payload, uid) => new Promise((resolve, reject) => {
+  fetch(`${endPoint}/authors/${payload.firebaseKey}.json?orderBy="uid"&equalTo="${uid}"`, {
     method: 'PATCH',
     headers: {
       'Content-Type': 'application/json',
@@ -77,15 +77,18 @@ const updateAuthor = (payload) => new Promise((resolve, reject) => {
     .catch(reject);
 });
 
-const getFavAuthor = () => new Promise((resolve, reject) => {
-  fetch(`${endPoint}/authors.json?orderBy="favorite"&equalTo=true`, {
+const getFavAuthor = (uid) => new Promise((resolve, reject) => {
+  fetch(`${endPoint}/authors.json??orderBy="uid"&equalTo="${uid}"`, {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
     },
   })
     .then((response) => response.json())
-    .then((data) => resolve(Object.values(data)))
+    .then((data) => {
+      const favAuthor = Object.values(data).filter((item) => item.sale);
+      resolve(favAuthor);
+    })
     .catch(reject);
 });
 
